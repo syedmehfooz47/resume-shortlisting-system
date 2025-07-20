@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append("file", file);
         console.log("Network: FormData prepared. Initiating fetch request to Netlify Function.");
 
-        // UPDATED URL for Netlify Functions deployment
         fetch("/.netlify/functions/shortlist", {
             method: "POST",
             body: formData,
@@ -65,16 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // --- UPDATED DYNAMIC HTML GENERATION ---
-
-            // Determine status based on score, which is more reliable
             const isShortlisted = data.score >= data.shortlisting_threshold;
             let statusClass = isShortlisted ? 'success' : 'error';
             let htmlOutput = `<h3 class="status-heading ${statusClass}">${data.message || "Processing Complete."}</h3>`;
 
             htmlOutput += `<div class="details">`;
 
-            // Display the score and justification
             if (data.score !== undefined) {
                  htmlOutput += `<p><strong>Score:</strong> ${data.score} (Threshold: ${data.shortlisting_threshold})</p>`;
             }
@@ -82,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
                  htmlOutput += `<p><em>${data.justification}</em></p>`;
              }
 
-            // Display matched skills
             if (data.keywords && data.keywords.length > 0) {
                 htmlOutput += `<strong>Matched Skills (${data.keywords.length}):</strong>
                                <ul>${data.keywords.map(skill => `<li>${skill}</li>`).join("")}</ul>`;
@@ -90,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 htmlOutput += `<p>No skills from our predefined list were found in this resume.</p>`;
             }
 
-            // Display dominant skill categories
             if (data.dominant_skill_categories && data.dominant_skill_categories.length > 0) {
                 htmlOutput += `<strong>Potential Dominant Skill Categories:</strong>
                                <ul>${data.dominant_skill_categories.map(category => `<li>${category}</li>`).join("")}</ul>`;
