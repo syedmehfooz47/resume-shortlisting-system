@@ -1,0 +1,14 @@
+# Virtual Environment
+.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# IDE configuration folders
+.idea/
+.vscode/
+
+# Temporary upload folders
+uploads/
+backend/uploads/
